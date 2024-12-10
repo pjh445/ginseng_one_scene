@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>CSS로 부드럽게 스크롤하기</title>
+    <style>
+        * {margin:0; box-sizing:border-box;}
+        ::-webkit-scrollbar {/* width:0; */}
+        img {max-width:100%;}
+        #smoothScroll {height:100vh; overflow:auto; scroll-snap-type:y mandatory; text-align: center;}
+        #smoothScroll>section {padding:10px; height:100%; scroll-snap-align:start;}
+        #smoothScroll>section:nth-child(3n+1) {background:gold;}
+        #smoothScroll>section:nth-child(3n+2) {background:skyblue;}
+        #smoothScroll>section:nth-child(3n) {background:pink;}
+
+        #position {
+            position: fixed; right:10px; top:30%;
+        }
+        #position button {
+            width:50px; height:50px; 
+            background-color: white;
+            border-radius:50%; 
+            box-sizing: border-box;
+            display:block; margin:10px;
+        }
+        #position button.active {
+            background-color: red;
+        }
+    </style>
+    <script src="js/wheel.js"></script>
+</head>
+<body>
+    <div id="smoothScroll">
+        <section>
+            <h1>섹션영역1</h1>
+            <img src="images/section_01.jpg" alt="section">
+            <img src="images/section_02.jpg" alt="section">
+        </section>
+        <section>
+            <h1>섹션영역2</h1>
+            <img src="images/section_03.jpg" alt="section">
+        </section>
+        <section>
+            <h1>섹션영역3</h1>
+            <img src="images/section_04.jpg" alt="section">
+        </section>
+        <section>
+            <h1>섹션영역4</h1>
+            <img src="images/section_05.jpg" alt="section">
+        </section>
+    </div>
+    <div id="position">
+        <button type="button" class="active">1</button>
+        <button type="button">2</button>
+        <button type="button">3</button>
+        <button type="button">4</button>
+    </div>
+</body>
+</html>
