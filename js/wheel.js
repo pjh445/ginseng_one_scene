@@ -32,25 +32,25 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /*************/  
-    smoothScroll.addEventListener('touchstart', touchStart, false);        
-    smoothScroll.addEventListener('touchmove', touchMove, false);
+    smoothScroll.addEventListener( 'touchstart', ts );        
+    smoothScroll.addEventListener( 'touchmove', tm );
    
-    let yDown = null;
+    let down = null;
 
-    function touchStart( e ) {
+    function ts( e ) {
         const firstTouch = e.touches[0]; //터치시작한순간의 index   
-        yDown = firstTouch.clientY;   
+        down = firstTouch.clientY;   
     };
 
-    function touchMove(e) {
-        if (  ! yDown ) {
+    function tm(e) {
+        if (  ! down ) {
             return;
         }
        
-        let yUp = e.touches[0].clientY;
-        let yDiff = yDown - yUp;
+        let up = e.touches[0].clientY;
+        let amount = down - up;
         
-        if ( yDiff > 0 ) {
+        if ( amount > 0 ) {
             /* up swipe */ 
             x = Math.min(x + 1 , 3 );  //x는 이동할 각 장면의 index번호
         } else { 
@@ -67,9 +67,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         scene( x );
 
-        /* reset values */
-        xDown = null;
-        yDown = null;                                             
+        /* 리셋 */        
+        down = null;                                             
     };
 
     const scene =  z => {
