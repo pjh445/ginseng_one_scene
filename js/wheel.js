@@ -3,8 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const buttons = [...document.querySelectorAll('#position button')];
     let x = 0; // 현재 활성화된 버튼의 인덱스    
     
-    let zz = false; //wheel 무력화   
-    const ev = ['wheel']
+    let zz = false; //wheel 무력화
 
     smoothScroll.addEventListener('wheel', e => { 
         e.preventDefault();  //wheel 무력화
@@ -33,46 +32,34 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /*************/  
-    smoothScroll.addEventListener('touchstart', handleTouchStart, false);        
-    smoothScroll.addEventListener('touchmove', handleTouchMove, false);
+    smoothScroll.addEventListener('touchstart', touchStart, false);        
+    smoothScroll.addEventListener('touchmove', touchMove, false);
 
     let xDown = null;                                                        
     let yDown = null;
 
-    function handleTouchStart(evt) {
-        const firstTouch = evt.touches[0];                                      
+    function touchStart( e ) {
+        const firstTouch = e.touches[0]; //터치시작한순간의 index                                    
         xDown = firstTouch.clientX;                                      
         yDown = firstTouch.clientY;                                      
     };                                                
 
-    function handleTouchMove(evt) {
-        if ( ! xDown || ! yDown ) {
+    function touchMove(e) {
+        if (  ! yDown ) {
             return;
         }
-
-        let xUp = evt.touches[0].clientX;                                    
-        let yUp = evt.touches[0].clientY;
-
-        let xDiff = xDown - xUp;
+       
+        let yUp = e.touches[0].clientY;
         let yDiff = yDown - yUp;
-
-        if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/* most significant */
-            if ( xDiff > 0 ) {
-                /* left swipe */ 
-                x = Math.min(x + 1 , 3 );                
-            } else {
-                /* right swipe */
-                x = Math.max(x - 1, 0 );                
-            }                       
-        } else {
-            if ( yDiff > 0 ) {
-                /* up swipe */ 
-                x = Math.min(x + 1 , 3 );
-            } else { 
-                /* down swipe */
-                x = Math.max(x - 1, 0 );
-            }                                                                 
-        }
+        
+        if ( yDiff > 0 ) {
+            /* up swipe */ 
+            x = Math.min(x + 1 , 3 );
+        } else { 
+            /* down swipe */
+            x = Math.max(x - 1, 0 );
+        }                                                                 
+       
         buttons.forEach( (i, j) => {
             if (j === x) {
                 i.classList.add('active');
