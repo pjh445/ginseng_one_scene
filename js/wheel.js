@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         zz = true; //wheel 가능해졌으므로 wheel 작동한다.
 
-        setTimeout(()=>{ zz = false; }, 1000);
+        setTimeout(()=>{ zz = false; }, 300);
 
 
         //스크롤을 내릴때 
@@ -35,22 +35,31 @@ document.addEventListener("DOMContentLoaded", () => {
                 i.classList.remove('active');
             }
         });
-        const sections = document.querySelectorAll('#smoothScroll>section')[x];
-        sections.scrollIntoView({ behavior: "smooth", block: "start" });
+        scene( x );
+      
         /*
         scrollIntoView() 메서드는 특정 요소가 화면에 보이도록 스크롤을 이동시키는 메서드입니다. 이 메서드는 요소의 상위 컨테이너를 스크롤하는 것이 아니라, 요소 자체를 스크롤합니다. 이 메서드를 호출하면 해당 요소가 현재 뷰포트에 보이도록 스크롤됩니다.
         */
     });
     /*************/
+    const scene =  z => {
+        const sections = document.querySelectorAll('#smoothScroll>section')[ z ];
+        sections.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    /*************/
     buttons.forEach( i  => {
-        i.addEventListener('click', e =>{
+        i.addEventListener('click', e =>{ 
+
             buttons.forEach( j => {
                 j.classList.remove('active');
             });
             e.target.classList.add('active');
             const num = buttons.indexOf( e.target );
-            const sections = document.querySelectorAll('#smoothScroll>section')[num];
-            sections.scrollIntoView({ behavior: "smooth", block: "start" });
+
+            //스크롤을 내릴때 
+            console.log( e.deltaY ); //100 또는 -100   
+            x = num;            
+            scene( x );
         });
     });
 
